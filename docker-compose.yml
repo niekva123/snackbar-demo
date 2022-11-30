@@ -1,0 +1,26 @@
+version: "3.1"
+services:
+  mysql-nva:
+    image: mysql:8.0
+    container_name: mysql-nva
+    volumes:
+      - nvadb:/var/lib/mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=passwd
+      - MYSQL_DATABASE=nvadb
+      - MYSQL_USER=niek
+      - MYSQL_PASSWORD=passwd
+    ports:
+      - "3306:3306"
+  php-nva:
+    build: docker/php-apache
+    container_name: php-nva
+    depends_on:
+      - mysql-nva
+    volumes:
+      - .:/var/www
+      - ./public:/var/www/html
+    ports:
+      - "80:80"
+volumes:
+  nvadb:
