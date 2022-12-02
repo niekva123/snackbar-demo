@@ -14,8 +14,15 @@ return new class extends Migration
     public function up()
     {
         Schema::create('items', function (Blueprint $table) {
-            $table->id();
+            $table->uuid();
+            $table->uuid('snackbar_uuid');
+            $table->string('name');
+            $table->smallInteger('price');
+
             $table->timestamps();
+
+            $table->primary('uuid');
+            $table->unique(['snackbar_uuid', 'name']);
         });
     }
 

@@ -14,8 +14,12 @@ return new class extends Migration
     public function up()
     {
         Schema::create('snackbars', function (Blueprint $table) {
-            $table->id();
+            $table->uuid();
+            $table->string('name');
             $table->timestamps();
+
+            $table->primary('uuid');
+            $table->unique('name');
         });
     }
 

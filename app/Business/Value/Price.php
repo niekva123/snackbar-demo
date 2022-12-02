@@ -17,4 +17,19 @@ class Price
     {
         return $this->priceInCents;
     }
+
+    public function getPriceInEuro(): float
+    {
+        return $this->priceInCents / 100;
+    }
+
+    public function getEuroAmount(): int
+    {
+        return (int) floor($this->getPriceInEuro());
+    }
+
+    public function getCentAmount(): int
+    {
+        return intval($this->priceInCents % 100);
+    }
 }
