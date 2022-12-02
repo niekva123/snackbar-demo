@@ -34,7 +34,7 @@ class InventoryController extends Controller
                 "details" => $validator->messages(),
             ]));
         }
-        $uuid = $this->inventoryService->addItem(Uuid::fromString($data['uuid']), $data['name'], new Price($data['price']));
+        $uuid = $this->inventoryService->addItem(Uuid::fromString($data['snackbar_uuid']), $data['name'], new Price((int) $data['price']));
 
         return \response(json_encode([
             'uuid' => $uuid,

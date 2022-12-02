@@ -14,5 +14,5 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('v1/inventory/items/{snackbarUuid}', [InventoryController::class, 'getInventoryItems ']);
+Route::get('v1/inventory/items/{snackbarUuid}', [InventoryController::class, 'getInventoryItems']);
 Route::post('v1/inventory/items/add', [InventoryController::class, 'addInventoryItem']);

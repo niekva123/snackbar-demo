@@ -26,7 +26,7 @@ class InventoryRepository implements InventoryRepositoryInterface
 
         return new Inventory(
             $snackBarUuid,
-            $items,
+            $items->toArray(),
         );
     }
 
