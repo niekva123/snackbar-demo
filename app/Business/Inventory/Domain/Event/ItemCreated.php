@@ -5,9 +5,10 @@ namespace App\Business\Inventory\Domain\Event;
 
 use App\Business\EventInterface;
 use App\Business\Value\Price;
+use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 
-class ItemChanged implements EventInterface
+class ItemCreated implements EventInterface
 {
     public function __construct(
         private readonly UuidInterface $uuid,

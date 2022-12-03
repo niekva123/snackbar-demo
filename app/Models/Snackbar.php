@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
  * App\Models\Snackbar
@@ -23,4 +24,11 @@ use Illuminate\Database\Eloquent\Model;
 class Snackbar extends Model
 {
     use HasFactory;
+
+    public $primaryKey = 'uuid';
+
+    public function items(): HasMany
+    {
+        return $this->hasMany(Item::class, 'snackbar_uuid');
+    }
 }

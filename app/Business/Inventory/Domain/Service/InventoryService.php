@@ -13,13 +13,29 @@ class InventoryService
         private readonly InventoryRepositoryInterface $inventoryRepository,
     ) {}
 
-    public function addItem(UuidInterface $snackBarUuid, string $itemName, Price $itemPrice): UuidInterface
+    public function createItem(UuidInterface $snackBarUuid, string $itemName, Price $itemPrice): UuidInterface
     {
         $inventory = $this->inventoryRepository->getInventory($snackBarUuid);
 
-        $itemUuid = $inventory->addItem($itemName, $itemPrice);
+        $itemUuid = $inventory->createItem($itemName, $itemPrice);
         $this->inventoryRepository->save($inventory);
 
         return $itemUuid;
+    }
+
+    public function changeItem(UuidInterface $snackBarUuid, UuidInterface $itemUuid, string $itemName, Price $itemPrice): void
+    {
+        $inventory = $this->inventoryRepository->getInventory($snackBarUuid);
+
+        $inventory->changeItem($itemUuid, $itemName, $itemPrice);
+        $this->inventoryRepository->save($inventory);
+    }
+
+    public function removeItem(UuidInterface $snackBarUuid, UuidInterface $itemUuid): void
+    {
+        $inventory = $this->inventoryRepository->getInventory($snackBarUuid);
+
+        $inventory->removeItem($itemUuid);
+        $this->inventoryRepository->save($inventory);
     }
 }

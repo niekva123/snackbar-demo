@@ -4,7 +4,7 @@ namespace Tests\Unit\Business\Inventory\Domain\Entity;
 
 use App\Business\Inventory\Domain\Entity\Inventory;
 use App\Business\Inventory\Domain\Entity\Item;
-use App\Business\Inventory\Domain\Event\ItemAdded;
+use App\Business\Inventory\Domain\Event\ItemCreated;
 use App\Business\Inventory\Domain\Exception\ItemNameException;
 use App\Business\Value\Price;
 use Mockery\Adapter\Phpunit\MockeryTestCase;
@@ -19,13 +19,13 @@ class InventoryTest extends MockeryTestCase
             Uuid::uuid4(),
             [],
         );
-        $newUuid = $inventory->addItem("Potatoes", new Price(225));
+        $newUuid = $inventory->createItem("Potatoes", new Price(225));
         $this->assertInstanceOf(UuidInterface::class, $newUuid);
         $this->assertCount(1, $inventory->getItems());
 
         $events = $inventory->popNewEvents();
         $this->assertCount(1, $events);
-        $this->assertInstanceOf(ItemAdded::class, $events[0]);
+        $this->assertInstanceOf(ItemCreated::class, $events[0]);
     }
 
     public function test_addItems_should_throw_an_exception_when_item_name_already_exists()
@@ -35,7 +35,7 @@ class InventoryTest extends MockeryTestCase
             [$this->item("Potatoes")],
         );
         $this->expectException(ItemNameException::class);
-        $inventory->addItem("Potatoes", new Price(225));
+        $inventory->createItem("Potatoes", new Price(225));
     }
 
     private function item(string $itemName): Item

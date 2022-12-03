@@ -1,0 +1,52 @@
+<?php
+declare(strict_types=1);
+
+namespace App\Business\Order\Domain\Value;
+
+use App\Business\Value\Price;
+use Ramsey\Uuid\UuidInterface;
+
+class OrderItem
+{
+    public function __construct(
+        private readonly UuidInterface $orderItemUuid,
+        private readonly UuidInterface $itemUuid,
+        private readonly Price $pricePerUnit,
+        private int $amount,
+    ) {
+        $this->amountShouldBeHigherThanZero($this->amount);
+    }
+
+    public function getOrderItemUuid(): UuidInterface
+    {
+        return $this->orderItemUuid;
+    }
+
+    public function getItemUuid(): UuidInterface
+    {
+        return $this->itemUuid;
+    }
+
+    public function getPricePerUnit(): Price
+    {
+        return $this->pricePerUnit;
+    }
+
+    public function getAmount(): int
+    {
+        return $this->amount;
+    }
+
+    public function changeAmount(int $newAmount): void
+    {
+        $this->amountShouldBeHigherThanZero($newAmount);
+        $this->amount = $newAmount;
+    }
+
+    private function amountShouldBeHigherThanZero(int $amount): void
+    {
+        if ($amount <= 0) {
+            throw new \InvalidArgumentException("Amount should be higher than 0");
+        }
+    }
+}

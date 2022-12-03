@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace App\Business;
 
-interface EventInterface extends \JsonSerializable
+interface EventInterface
 {
-    public static function fromJson(array $data): self;
+
 }

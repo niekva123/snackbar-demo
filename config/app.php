@@ -1,6 +1,7 @@
 <?php
 
 use App\Business\Inventory\Application\InventoryServiceProvider;
+use App\Business\Order\Application\OrderServiceProvider;
 use Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider;
 use Illuminate\Support\Facades\Facade;
 
@@ -199,7 +200,9 @@ return [
         TwigBridge\ServiceProvider::class,
         IdeHelperServiceProvider::class,
 
+        //Domain specific service providers
         InventoryServiceProvider::class,
+        OrderServiceProvider::class,
     ],
 
     /*
