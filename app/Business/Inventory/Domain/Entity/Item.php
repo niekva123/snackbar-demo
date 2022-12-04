@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace App\Business\Inventory\Domain\Entity;
 
+use App\Business\Inventory\Domain\Exception\ItemNameException;
 use App\Business\Value\Price;
 use Ramsey\Uuid\UuidInterface;
 
@@ -12,7 +13,11 @@ class Item
         private readonly UuidInterface $uuid,
         private string $name,
         private Price $price,
-    ) {}
+    ) {
+        if (trim($this->name) === "") {
+            throw ItemNameException::forEmptyName();
+        }
+    }
 
     public function getUuid(): UuidInterface
     {

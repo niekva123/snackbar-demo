@@ -9,4 +9,9 @@ class ItemNameException extends \DomainException
     {
         return new self("Name $name already exists");
     }
+
+    public static function forEmptyName(): self
+    {
+        return new self("Empty item name given");
+    }
 }

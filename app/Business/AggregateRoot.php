@@ -5,7 +5,7 @@ namespace App\Business;
 
 abstract class AggregateRoot implements TriggersEventsInterface
 {
-    private array $newEvents;
+    private array $newEvents = [];
 
     public function newEvent(EventInterface $event): void
     {
