@@ -1,5 +1,6 @@
 <?php
 
+use App\Actions\Inventory\CreateItem;
 use App\Http\Controllers\Api\InventoryController;
 use App\Http\Controllers\Api\OrderController;
 use Illuminate\Support\Facades\Route;
@@ -16,7 +17,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('v1/inventory/{snackbarUuid}/items', [InventoryController::class, 'getInventoryItems']);
-Route::post('v1/inventory/{snackbarUuid}/items/create', [InventoryController::class, 'createInventoryItem']);
+Route::post('v1/inventory/{snackbar}/items/create', [CreateItem::class, 'asController']);
 Route::post('v1/inventory/{snackbarUuid}/items/{itemUuid}/edit', [InventoryController::class, 'changeInventoryItem']);
 Route::delete('v1/inventory/{snackbarUuid}/items/{itemUuid}', [InventoryController::class, 'removeInventoryItem']);
 
