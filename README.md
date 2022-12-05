@@ -6,6 +6,13 @@ This application is a simple demo application containing the following domains:
 
 The architecture is based on Domain Driven Design with Laravel used as framework. It demonstrates the way I deal with logic that should be scalable and testable.
 
+## Overengineering??
+This code can feel like it's "a bit" of over engineering. And that's right. In a lot of cases a more traditional approach is more than enough. But complexity can grow, and at some point the limitations of a traditional way of programming is reached. 
+
+This architecture has proven to be more scalable and testable. Even the performance can be significant better in complex cases.
+
+If you are interested in a traditional approach, see https://github.com/niekva123/snackbar-demo/tree/a-more-traditional-approach
+(WORK IN PROGRESS)
 ## Work in progress
 This code is a work-in-progress. The following implementations can be expected soon:
 - Unit tests
