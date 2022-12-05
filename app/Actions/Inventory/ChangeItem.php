@@ -5,6 +5,7 @@ namespace App\Actions\Inventory;
 use App\Http\Resources\ItemResource;
 use App\Models\Item;
 use App\Models\Snackbar;
+use Illuminate\Validation\Validator;
 use Lorisleiva\Actions\ActionRequest;
 use Lorisleiva\Actions\Concerns\AsAction;
 use Ramsey\Uuid\Uuid;
@@ -28,8 +29,7 @@ class ChangeItem
 
     public function asController(ActionRequest $request, Snackbar $snackbar, Item $item): ItemResource
     {
-        $data = $request->only('name', 'price');
-        $this->handle($item, $data);
+        $this->handle($item, $request->validated());
         return new ItemResource($item);
     }
 }

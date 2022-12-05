@@ -2,7 +2,6 @@
 
 namespace App\Http\Resources;
 
-use App\Business\Value\Price;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class ItemResource extends JsonResource
@@ -18,7 +17,7 @@ class ItemResource extends JsonResource
         return [
             'uuid' => $this->uuid,
             'name' => $this->name,
-            'price' => (new Price($this->price))->getPriceInEuro(),
+            'price' => $this->price,
             'snackbar_uuid' => $this->snackbar_uuid,
         ];
     }

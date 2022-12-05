@@ -2,6 +2,7 @@
 
 use App\Actions\Inventory\ChangeItem;
 use App\Actions\Inventory\CreateItem;
+use App\Actions\Inventory\GetInventory;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -15,7 +16,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-//Route::get('v1/inventory/{snackbarUuid}/items', [InventoryController::class, 'getInventoryItems']);
+Route::get('v1/inventory/{snackbar}/items', GetInventory::class);
 Route::post('v1/inventory/{snackbar}/items/create', CreateItem::class);
 Route::post('v1/inventory/{snackbar}/items/{item}/edit', ChangeItem::class);
 //Route::delete('v1/inventory/{snackbarUuid}/items/{itemUuid}', [InventoryController::class, 'removeInventoryItem']);
