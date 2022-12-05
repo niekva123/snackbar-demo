@@ -7,28 +7,29 @@ use App\Models\Item;
 use App\Models\Snackbar;
 use Lorisleiva\Actions\ActionRequest;
 use Lorisleiva\Actions\Concerns\AsAction;
+use Ramsey\Uuid\Uuid;
 
-class CreateItem
+class ChangeItem
 {
     use AsAction;
 
-    public function handle(Snackbar $snackbar, array $data): Item
+    public function handle(Item $item, array $data): void
     {
-        return $snackbar->items()->create($data);
+        $item->update($data);
     }
 
     public function rules(): array
     {
         return [
-            'name' => 'required|string',
-            'price' => 'required|numeric',
+            'name' => 'string',
+            'price' => 'numeric',
         ];
     }
 
-    public function asController(ActionRequest $request, Snackbar $snackbar): ItemResource
+    public function asController(ActionRequest $request, Snackbar $snackbar, Item $item): ItemResource
     {
         $data = $request->only('name', 'price');
-        $item = $this->handle($snackbar, $data);
+        $this->handle($item, $data);
         return new ItemResource($item);
     }
 }
