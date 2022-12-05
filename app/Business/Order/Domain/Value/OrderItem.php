@@ -3,11 +3,14 @@ declare(strict_types=1);
 
 namespace App\Business\Order\Domain\Value;
 
+use App\Business\Order\Domain\Exception\OrderItemException;
 use App\Business\Value\Price;
 use Ramsey\Uuid\UuidInterface;
 
 class OrderItem
 {
+    private const MAX_AMOUNT = 20;
+
     public function __construct(
         private readonly UuidInterface $orderItemUuid,
         private readonly UuidInterface $itemUuid,
@@ -46,7 +49,10 @@ class OrderItem
     private function amountShouldBeHigherThanZero(int $amount): void
     {
         if ($amount <= 0) {
-            throw new \InvalidArgumentException("Amount should be higher than 0");
+            throw OrderItemException::forAmountTooLow($amount);
+        }
+        if ($amount > self::MAX_AMOUNT) {
+            throw OrderItemException::forAmountTooHigh($amount, self::MAX_AMOUNT);
         }
     }
 }

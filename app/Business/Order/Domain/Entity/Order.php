@@ -8,6 +8,7 @@ use App\Business\Order\Domain\Events\OrderCreated;
 use App\Business\Order\Domain\Events\OrderItemAdded;
 use App\Business\Order\Domain\Events\OrderItemAmountChanged;
 use App\Business\Order\Domain\Events\OrderItemRemoved;
+use App\Business\Order\Domain\Exception\InventoryException;
 use App\Business\Order\Domain\Exception\OrderItemException;
 use App\Business\Order\Domain\Service\InventoryInterface;
 use App\Business\Order\Domain\Value\OrderItem;
@@ -16,10 +17,10 @@ use Ramsey\Uuid\UuidInterface;
 
 class Order extends AggregateRoot
 {
-    public static function newOrder(UuidInterface $snackbarUuid, InventoryInterface $itemPriceSupplier): self
+    public static function newOrder(UuidInterface $snackbarUuid, InventoryInterface $inventory): self
     {
         $uuid = Uuid::uuid4();
-        $order = new Order($uuid, $snackbarUuid, $itemPriceSupplier, []);
+        $order = new Order($uuid, $snackbarUuid, $inventory, []);
         $order->newEvent(new OrderCreated($uuid, $snackbarUuid));
         return $order;
     }
@@ -35,7 +36,7 @@ class Order extends AggregateRoot
     public function __construct(
         private readonly UuidInterface      $orderUuid,
         private readonly UuidInterface      $snackbarUuid,
-        private readonly InventoryInterface $itemPriceSupplier,
+        private readonly InventoryInterface $inventory,
         array                               $orderItems,
     ) {
         $this->orderItems = [];
@@ -45,9 +46,12 @@ class Order extends AggregateRoot
         }
     }
 
+    /**
+     * @throws InventoryException
+     */
     public function addOrderItem(UuidInterface $itemUuid, int $amount): UuidInterface
     {
-        $price = $this->itemPriceSupplier->getCurrentItemPrice($this->snackbarUuid, $itemUuid);
+        $price = $this->inventory->getCurrentItemPrice($this->snackbarUuid, $itemUuid);
         $orderItemUuid = Uuid::uuid4();
         $this->orderItems[] = new OrderItem($orderItemUuid, $itemUuid, $price, $amount);
 

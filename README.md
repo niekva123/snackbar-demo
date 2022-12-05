@@ -33,5 +33,5 @@ The order domain is meant for creating orders by a public user. The user can:
 
 The order domain implements the following business rules:
 - An item from the inventory can be added to the order
-- The amount of an order item should be 1 or higher
+- The amount of an order item should be 1 or higher, but not more than 20
 - An order item has the price stored that the inventory had on the moment the order item was added to the order

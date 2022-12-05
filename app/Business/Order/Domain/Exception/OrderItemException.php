@@ -11,4 +11,14 @@ class OrderItemException extends \DomainException
     {
         return new self("No order item found with uuid " . $uuid->toString());
     }
+
+    public static function forAmountTooLow(int $amount): self
+    {
+        return new self("Order amount $amount is too low, should be higher than 0");
+    }
+
+    public static function forAmountTooHigh(int $amount, int $maxAmount): self
+    {
+        return new self("Order amount $amount is too high, max $maxAmount allowed");
+    }
 }
